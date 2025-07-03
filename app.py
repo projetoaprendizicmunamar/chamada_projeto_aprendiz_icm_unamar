@@ -214,12 +214,6 @@ if st.session_state.logado:
             # Resetar o estado de revisão
             st.session_state.revisado = False
 
-
-
-
-else:
-    if usuario or senha:
-        st.error("Usuário ou senha inválidos.")
 def enviar_para_onedrive(df):
     try:
         # Autenticando no Microsoft Graph
