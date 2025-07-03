@@ -94,12 +94,32 @@ perfis = {
 }
 
 st.title("🔐 Login do Instrutor")
+
+# Inicializa os estados de login
+if "login_tentado" not in st.session_state:
+    st.session_state.login_tentado = False
+if "logado" not in st.session_state:
+    st.session_state.logado = False
+
 usuario = st.text_input("Usuário")
 senha = st.text_input("Senha", type="password")
 
-if usuario in perfis and senha == perfis[usuario]["senha"]:
-    st.success(f"Bem-vindo, {usuario}!")
+# Botão para tentar o login
+if st.button("Entrar"):
+    st.session_state.login_tentado = True
+    if usuario in perfis and senha == perfis[usuario]["senha"]:
+        st.session_state.logado = True
+        st.session_state.usuario = usuario
+    else:
+        st.session_state.logado = False
 
+# Mostra erro só se clicou e errou
+if st.session_state.login_tentado and not st.session_state.logado:
+    st.error("Usuário ou senha inválidos.")
+
+# Se logado, segue com o sistema
+if st.session_state.logado:
+    usuario = st.session_state.usuario
     instrutor = usuario
     instrumento = perfis[usuario]["instrumento"]
     lista_alunos = perfis[usuario]["alunos"]
@@ -107,6 +127,7 @@ if usuario in perfis and senha == perfis[usuario]["senha"]:
     st.header(f"📋 Chamada - {instrumento}")
     data_selecionada = st.date_input("📅 Data da chamada", value=date.today())
     st.caption(f"📌 Data selecionada: {data_selecionada.strftime('%d/%m/%Y')}")
+    # e continue seu código normalmente daqui...
 
 
     st.markdown("### Marque os alunos que **faltaram** nesta data:")
