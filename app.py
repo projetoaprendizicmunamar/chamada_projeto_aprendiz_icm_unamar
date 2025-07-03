@@ -112,10 +112,11 @@ senha = st.text_input("Senha", type="password")
 
 # Botão para tentar o login
 if st.button("Entrar"):
-    st.session_state.login_tentado = True  # ✅ Agora marcamos que clicou
+    st.session_state.login_tentado = True
     if usuario in perfis and senha == perfis[usuario]["senha"]:
         st.session_state.logado = True
         st.session_state.usuario = usuario
+        st.success("Bem-vindo, Instrutor!")  # ✅ Mostra a mensagem de boas-vindas
     else:
         st.session_state.logado = False
 
