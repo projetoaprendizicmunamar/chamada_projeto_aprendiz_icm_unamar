@@ -1,7 +1,14 @@
-import streamlit as st
-import pandas as pd
-from datetime import date
+import json
+import requests
+from msal import ConfidentialClientApplication
 import os
+CLIENT_ID = "eb6ecd1c-0d28-4027-bcc5-cd1e710160c7"
+CLIENT_SECRET = "08e4e445-d36d-4724-a9eb-4e836757d1ee"
+TENANT_ID = "5ebe82bb-f23f-4bb6-b7d0-b038c066ad05"
+
+AUTHORITY = f"https://login.microsoftonline.com/{TENANT_ID}"
+SCOPE = ["https://graph.microsoft.com/.default"]
+UPLOAD_URL = "https://graph.microsoft.com/v1.0/me/drive/root:/chamada_geral.xlsx:/content"
 
 st.set_page_config(page_title="Chamada Aprendiz", layout="centered")
 
@@ -145,6 +152,7 @@ if usuario in perfis and senha == perfis[usuario]["senha"]:
                 sep=";",
                 header=not os.path.exists(caminho),
                 index=False)
+            enviar_para_onedrive(df)
 
             # 🔄 Atualiza Excel com abas por instrumento
             try:
@@ -184,3 +192,38 @@ if usuario in perfis and senha == perfis[usuario]["senha"]:
 else:
     if usuario or senha:
         st.error("Usuário ou senha inválidos.")
+def enviar_para_onedrive(df):
+    try:
+        # Autenticando no Microsoft Graph
+        app = ConfidentialClientApplication(
+            client_id=CLIENT_ID,
+            client_credential=CLIENT_SECRET,
+            authority=AUTHORITY
+        )
+        token_response = app.acquire_token_for_client(scopes=SCOPE)
+        access_token = token_response.get("access_token")
+
+        if not access_token:
+            st.error("❌ Falha ao obter token de acesso.")
+            return
+
+        # Salvando o DataFrame em memória (em formato Excel)
+        import io
+        buffer = io.BytesIO()
+        with pd.ExcelWriter(buffer, engine="xlsxwriter") as writer:
+            df.to_excel(writer, index=False, sheet_name="Chamada")
+        buffer.seek(0)
+
+        # Enviando para o OneDrive via Microsoft Graph
+        headers = {
+            "Authorization": f"Bearer {access_token}",
+            "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        }
+        response = requests.put(UPLOAD_URL, headers=headers, data=buffer.read())
+
+        if response.status_code == 201:
+            st.success("✅ Arquivo Excel enviado com sucesso para o OneDrive!")
+        else:
+            st.error(f"❌ Falha no envio para o OneDrive: {response.status_code}")
+    except Exception as e:
+        st.error(f"Erro inesperado: {e}")
