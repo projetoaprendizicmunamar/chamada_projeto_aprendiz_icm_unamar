@@ -99,11 +99,12 @@ perfis = {
 st.title("🔐 Login do Instrutor")
 
 # Inicializa os estados de login
-if "login_tentado" not in st.session_state:
-    st.session_state.login_tentado = False
 if "logado" not in st.session_state:
     st.session_state.logado = False
+if "usuario" not in st.session_state:
+    st.session_state.usuario = ""
 
+# Campos de entrada
 usuario = st.text_input("Usuário")
 senha = st.text_input("Senha", type="password")
 
@@ -114,7 +115,7 @@ if st.button("Entrar"):
         st.session_state.usuario = usuario
     else:
         st.session_state.logado = False
-        st.error("Usuário ou senha inválidos.")  # <- Só mostra após clique
+        st.error("Usuário ou senha inválidos.")  # ✅ Só mostra após clique
 
 # Se logado, segue com o sistema
 if st.session_state.logado:
