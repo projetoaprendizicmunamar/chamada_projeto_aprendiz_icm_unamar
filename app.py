@@ -113,7 +113,10 @@ if st.button("Entrar"):
         st.session_state.usuario = usuario
     else:
         st.session_state.logado = False
-        st.error("Usuário ou senha inválidos.")  # ← Só aparece aqui após o clique
+
+# Exibe erro apenas se clicou e falhou
+if st.session_state.login_tentado and not st.session_state.logado:
+    st.error("Usuário ou senha inválidos.")
 
 # Se logado, segue com o sistema
 if st.session_state.logado:
