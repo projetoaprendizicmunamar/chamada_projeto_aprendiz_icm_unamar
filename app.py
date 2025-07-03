@@ -109,16 +109,12 @@ senha = st.text_input("Senha", type="password")
 
 # Botão para tentar o login
 if st.button("Entrar"):
-    st.session_state.login_tentado = True
     if usuario in perfis and senha == perfis[usuario]["senha"]:
         st.session_state.logado = True
         st.session_state.usuario = usuario
     else:
         st.session_state.logado = False
-
-# Exibe erro apenas se clicou e falhou
-if st.session_state.login_tentado and not st.session_state.logado:
-    st.error("Usuário ou senha inválidos.")
+        st.error("Usuário ou senha inválidos.")  # <- Só mostra após clique
 
 # Se logado, segue com o sistema
 if st.session_state.logado:
