@@ -34,9 +34,9 @@ perfis = {
             "Fernando cicero da silveira Souza", "Isabella Alves Miranda da Silva", "Adriana Franco de Oliveira",
             "Charles Nogueira Rabelo", "Paulo vitor Maria", "Bruno Santana da Rocha", "Douglas Lisboa de Azevedo",
             "Igor Fernando Lustoza Baptista", "Sarah Fernanda Rosa Baptista", "Elizeia Espíndola Martins",
-            "Davy francoly Evaristo lopes", "João Pedro Gomes Fernandes Ribeiro", "Gustavo Oliveira Suypeene da Silva",
-            "Claudia", "Christiane Andrade", "Carlos Alberto - (Diácono)", "Alerrandro", "Lara Santos", "Ronaldo",
-            "Filipe Lustoza", "Lavinea Allão"
+            "João Pedro Gomes Fernandes Ribeiro", "Gustavo Oliveira Suypeene da Silva",
+            "Christiane Andrade", "Carlos Alberto - (Diácono)", "Alerrandro", "Lara Santos", "Ronaldo - (Rasa)",
+            "Filipe Lustoza", "Juan Gabriel de Oliveira Lopes", "Calos Cézar", "Maria Conceição"
         ]
     },
     "escaleta": {
