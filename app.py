@@ -181,7 +181,6 @@ if st.session_state.logado:
                 sep=";",
                 header=not os.path.exists(caminho),
                 index=False)
-            enviar_para_onedrive(df)
 
             # 🔄 Atualiza Excel com abas por instrumento
             try:
