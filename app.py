@@ -214,39 +214,3 @@ if st.session_state.logado:
 
             # Resetar o estado de revisão
             st.session_state.revisado = False
-
-def enviar_para_onedrive(df):
-    try:
-        # Autenticando no Microsoft Graph
-        app = ConfidentialClientApplication(
-            client_id=CLIENT_ID,
-            client_credential=CLIENT_SECRET,
-            authority=AUTHORITY
-        )
-        token_response = app.acquire_token_for_client(scopes=SCOPE)
-        access_token = token_response.get("access_token")
-
-        if not access_token:
-            st.error("❌ Falha ao obter token de acesso.")
-            return
-
-        # Salvando o DataFrame em memória (em formato Excel)
-        import io
-        buffer = io.BytesIO()
-        with pd.ExcelWriter(buffer, engine="xlsxwriter") as writer:
-            df.to_excel(writer, index=False, sheet_name="Chamada")
-        buffer.seek(0)
-
-        # Enviando para o OneDrive via Microsoft Graph
-        headers = {
-            "Authorization": f"Bearer {access_token}",
-            "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        }
-        response = requests.put(UPLOAD_URL, headers=headers, data=buffer.read())
-
-        if response.status_code == 201:
-            st.success("✅ Arquivo Excel enviado com sucesso para o OneDrive!")
-        else:
-            st.error(f"❌ Falha no envio para o OneDrive: {response.status_code}")
-    except Exception as e:
-        st.error(f"Erro inesperado: {e}")
