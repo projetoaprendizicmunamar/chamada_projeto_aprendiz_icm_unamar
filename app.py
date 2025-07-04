@@ -92,7 +92,7 @@ perfis = {
     "trompete": {
         "senha": "Unamar2025",
         "instrumento": "Trompete",
-        "alunos": ["Josué de Souza Silveira Júnior"]
+        "alunos": ["Josué de Souza Silveira Júnior", Lucas Cézar Mendes de Souza]
     }
 }
 
