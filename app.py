@@ -4,6 +4,7 @@ import requests
 from msal import ConfidentialClientApplication
 import os
 from datetime import date  # ✅ ADICIONE AQUI
+import pandas as pd        # ✅ CORRIGE O ERRO DE 'pd' NÃO DEFINIDO
 
 CLIENT_ID = "eb6ecd1c-0d28-4027-bcc5-cd1e710160c7"
 CLIENT_SECRET = "08e4e445-d36d-4724-a9eb-4e836757d1ee"
