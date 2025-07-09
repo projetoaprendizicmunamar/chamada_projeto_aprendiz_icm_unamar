@@ -64,12 +64,12 @@ perfis = {
     "bateria_quarta": {
         "senha": "Unamar2025",
         "instrumento": "Bateria (Quarta-feira)",
-        "alunos": ["Hebert", "Pietro", "Davi", "Luciane Lustoza", "Rian", "Marcelo"]
+        "alunos": ["Hebert", "Pietro", "Davi", "Bruno", "Rian", "Marcelo"]
     },
     "bateria_quinta": {
         "senha": "Unamar2025",
         "instrumento": "Bateria (Quinta-feira)",
-        "alunos": ["Cristian", "Diego", "Luciana Pessoa", "Miguel Lobo", "Miguel Villena"]
+        "alunos": ["Cristian", "Diego", "Luciana Pessoa", "Miguel Lobo", "Miguel Villena","Luciane Lustoza"]
     },
     "flauta": {
         "senha": "Unamar2025",
