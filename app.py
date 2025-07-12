@@ -24,7 +24,7 @@ perfis = {
             "Bernardo Andrade Blyth", "Briana Quaresma da Silva", "Ester da Silva Goulart", "Laura Carvalho Lírio",
             "Maria kailaine Corrêa Guedes de Jesus", "Maria Nice", "Rayca Gomes Pereira Cavalcante",
             "Vivianne Barretto Queiroz dos Santos", "Augusto", "Richard P.", "Giovana", "Bruno", "Júlia Vitória",
-            "Andreia Barraca", "Ana Carolina Corrêa de Melo", "Luana Allão", "PIETRA CHRISTINY"
+            "Andreia Barraca", "Ana Carolina Corrêa de Melo", "Luana Allão", "Pietra Christiny", "Carlos Henrique", "Caroline Andrade", "Cristian"
         ]
     },
     "violao": {
