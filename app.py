@@ -24,7 +24,7 @@ perfis = {
             "Bernardo Andrade Blyth", "Briana Quaresma da Silva", "Ester da Silva Goulart", "Laura Carvalho Lírio",
             "Maria kailaine Corrêa Guedes de Jesus", "Maria Nice", "Rayca Gomes Pereira Cavalcante",
             "Vivianne Barretto Queiroz dos Santos", "Augusto", "Richard P.", "Giovana", "Bruno", "Júlia Vitória",
-            "Andreia Barraca", "Ana Carolina Corrêa de Melo", "Luana Allão", "Pietra Christiny", "Carlos Henrique", "Caroline Andrade", "Cristian"
+            "Andreia Barraca", "Ana Carolina Corrêa de Melo", "Miriam Marques", "Pietra Christiny", "Carlos Henrique", "Caroline Andrade", "Cristian"
         ]
     },
     "violao": {
@@ -36,7 +36,7 @@ perfis = {
             "Igor Fernando Lustoza Baptista", "Sarah Fernanda Rosa Baptista", "Elizeia Espíndola Martins",
             "João Pedro Gomes Fernandes Ribeiro", "Gustavo Oliveira Suypeene da Silva",
             "Christiane Andrade", "Carlos Alberto - (Diácono)", "Alerrandro", "Lara Santos", "Ronaldo - (Rasa)",
-            "Filipe Lustoza", "Juan Gabriel de Oliveira Lopes", "Calos Cézar", "Maria Conceição"
+            "Filipe Lustoza", "Juan Gabriel de Oliveira Lopes", "Carlos Cézar", "Maria Conceição"
         ]
     },
     "escaleta": {
@@ -87,7 +87,7 @@ perfis = {
             "João Pedro Sousa Assumpção", "Gabrielly Gomes dos Santos Nunes", "Emerson Felizardo Reis",
             "Daniela Diógenes Carvalho Silveira", "Kauã Bryan Constantino Nunes", "Andressa Alves",
             "Ana Carla Mendes Silveira", "Yanni Gonçalves Santiago", "Vitória Martins de Moraes",
-            "Caroline Carvalho dos Santos de Souza", "Davi (Intermadiário de Búzios Central)"
+            "Caroline Carvalho dos Santos de Souza", "Davi (Intermadiário de Búzios Central), "Ana Ketelyn"
         ]
     },
     "trompete": {
