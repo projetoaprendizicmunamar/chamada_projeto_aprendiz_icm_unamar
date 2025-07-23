@@ -204,12 +204,11 @@ for aluno in lista_alunos:
     status = "Faltou" if aluno in faltas else "Presente"
     recibo_txt += f"- {aluno}: {status}\n"
 
-            st.download_button(
-                label="⬇️ Baixar recibo da chamada (.txt)",
-                data=recibo_txt,
-                file_name=f"recibo_chamada_{instrutor}_{data_selecionada}.txt",
-                mime="text/plain"
-            )
+st.download_button(
+label="⬇️ Baixar recibo da chamada (.txt)",
+data=recibo_txt,
+file_name=f"recibo_chamada_{instrutor}_{data_selecionada}.txt",
+mime="text/plain")
 
-            # Resetar o estado de revisão
-            st.session_state.revisado = False
+# Resetar o estado de revisão
+st.session_state.revisado = False
