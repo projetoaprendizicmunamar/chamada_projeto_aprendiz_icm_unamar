@@ -82,13 +82,11 @@ perfis = {
     "violino": {
         "senha": "Unamar2025",
         "instrumento": "Violino",
-        "alunos": [
-            "Thiago da Silva Santos", "Denis Fernandes da Silva Ribeiro", "Gabriele Franco de Oliveira",
+        "alunos": ["Thiago da Silva Santos", "Denis Fernandes da Silva Ribeiro", "Gabriele Franco de Oliveira",
             "João Pedro Sousa Assumpção", "Gabrielly Gomes dos Santos Nunes", "Emerson Felizardo Reis",
             "Daniela Diógenes Carvalho Silveira", "Kauã Bryan Constantino Nunes", "Andressa Alves",
             "Ana Carla Mendes Silveira", "Yanni Gonçalves Santiago", "Vitória Martins de Moraes",
-            "Caroline Carvalho dos Santos de Souza", "Davi (Intermadiário de Búzios Central), "Ana Ketelyn"
-        ]
+            "Caroline Carvalho dos Santos de Souza", "Davi (Intermadiário de Búzios Central)", "Ana Ketelyn"]
     },
     "trompete": {
         "senha": "Unamar2025",
