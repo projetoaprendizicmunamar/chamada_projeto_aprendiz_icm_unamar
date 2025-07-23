@@ -130,11 +130,13 @@ if st.session_state.logado:
     instrumento = perfis[usuario]["instrumento"]
     lista_alunos = perfis[usuario]["alunos"]
 
+    # ✅ Inicializa o estado de revisão
+    if "revisado" not in st.session_state:
+        st.session_state.revisado = False
+
     st.header(f"📋 Chamada - {instrumento}")
     data_selecionada = st.date_input("📅 Data da chamada", value=date.today())
     st.caption(f"📌 Data selecionada: {data_selecionada.strftime('%d/%m/%Y')}")
-    # e continue seu código normalmente daqui...
-
 
     st.markdown("### Marque os alunos que **faltaram** nesta data:")
     st.caption("Os nomes que **não forem marcados** terão presença registrada automaticamente.")
@@ -144,76 +146,68 @@ if st.session_state.logado:
         if st.checkbox(aluno):
             faltas.append(aluno)
 
-           # Controle de estado da confirmação
-    if "revisado" not in st.session_state:
-        st.session_state.revisado = False
-
     # Etapa 1: revisar chamada
     if st.button("✅ Revisar Chamada"):
         st.session_state.revisado = True
 
     # Etapa 2: confirmar e registrar, se revisado for True
-            # Etapa 1: revisar chamada
-if st.button("✅ Revisar Chamada"):
-    st.session_state.revisado = True
+    if st.session_state.revisado:
+        st.warning(f"{len(faltas)} aluno(s) marcados como falta.")
+        st.caption("Revise a lista acima. Se estiver correta, confirme abaixo para registrar a chamada.")
 
-# Etapa 2: confirmar e registrar, se revisado for True
-if st.session_state.revisado:
-    st.warning(f"{len(faltas)} aluno(s) marcados como falta.")
-    st.caption("Revise a lista acima. Se estiver correta, confirme abaixo para registrar a chamada.")
+        if st.button("✔️ Confirmar e registrar chamada"):
+            registros = []
+            for aluno in lista_alunos:
+                status = "Faltou" if aluno in faltas else "Presente"
+                registros.append({
+                    "Data": data_selecionada,
+                    "Instrutor": instrutor,
+                    "Instrumento": instrumento,
+                    "Aluno": aluno,
+                    "Presença": status
+                })
 
-    if st.button("✔️ Confirmar e registrar chamada"):
-        registros = []
-        for aluno in lista_alunos:
-            status = "Faltou" if aluno in faltas else "Presente"
-            registros.append({
-                "Data": data_selecionada,
-                "Instrutor": instrutor,
-                "Instrumento": instrumento,
-                "Aluno": aluno,
-                "Presença": status
-            })
+            df = pd.DataFrame(registros)
+            os.makedirs("dados", exist_ok=True)
+            caminho = "dados/chamada_geral.csv"
+            df.to_csv(
+                caminho,
+                mode="a",
+                encoding="utf-8-sig",
+                sep=";",
+                header=not os.path.exists(caminho),
+                index=False)
 
-        df = pd.DataFrame(registros)
-        os.makedirs("dados", exist_ok=True)
-        caminho = "dados/chamada_geral.csv"
-        df.to_csv(
-            caminho,
-            mode="a",
-            encoding="utf-8-sig",
-            sep=";",
-            header=not os.path.exists(caminho),
-            index=False)
+            # 🔄 Atualiza Excel com abas por instrumento
+            try:
+                df_total = pd.read_csv(caminho, sep=";")
+                excel_path = "dados/chamada_por_instrumento.xlsx"
+                with pd.ExcelWriter(excel_path, engine="xlsxwriter") as writer:
+                    for instrumento_nome, dados_instrumento in df_total.groupby("Instrumento"):
+                        dados_instrumento.to_excel(writer, sheet_name=instrumento_nome[:31], index=False)
+            except Exception as e:
+                st.error(f"Erro ao gerar Excel por instrumento: {e}")
 
-        # 🔄 Atualiza Excel com abas por instrumento
-        try:
-            df_total = pd.read_csv(caminho, sep=";")
-            excel_path = "dados/chamada_por_instrumento.xlsx"
-            with pd.ExcelWriter(excel_path, engine="xlsxwriter") as writer:
-                for instrumento_nome, dados_instrumento in df_total.groupby("Instrumento"):
-                    dados_instrumento.to_excel(writer, sheet_name=instrumento_nome[:31], index=False)
-        except Exception as e:
-            st.error(f"Erro ao gerar Excel por instrumento: {e}")
+            st.success("Chamada registrada com sucesso!")
+            st.info(f"Total de faltas registradas: {len(faltas)}")
 
-        st.success("Chamada registrada com sucesso!")
-        st.info(f"Total de faltas registradas: {len(faltas)}")
+            # ✅ Gerar recibo em texto
+            recibo_txt = f"Recibo de Chamada - {instrutor}\n"
+            recibo_txt += f"Data: {data_selecionada.strftime('%d/%m/%Y')}\n"
+            recibo_txt += f"Instrumento: {instrumento}\n"
+            recibo_txt += f"Total de alunos: {len(lista_alunos)}\n"
+            recibo_txt += f"Total de faltas: {len(faltas)}\n\n"
+            recibo_txt += "Presença dos Alunos:\n"
+            for aluno in lista_alunos:
+                status = "Faltou" if aluno in faltas else "Presente"
+                recibo_txt += f"- {aluno}: {status}\n"
 
-        # ✅ Gerar recibo em texto (agora dentro do bloco)
-        recibo_txt = f"Recibo de Chamada - {instrutor}\n"
-        recibo_txt += f"Data: {data_selecionada.strftime('%d/%m/%Y')}\n"
-        recibo_txt += f"Instrumento: {instrumento}\n"
-        recibo_txt += f"Total de alunos: {len(lista_alunos)}\n"
-        recibo_txt += f"Total de faltas: {len(faltas)}\n\n"
-        recibo_txt += "Presença dos Alunos:\n"
-        for aluno in lista_alunos:
-            status = "Faltou" if aluno in faltas else "Presente"
-            recibo_txt += f"- {aluno}: {status}\n"
+            st.download_button(
+                label="⬇️ Baixar recibo da chamada (.txt)",
+                data=recibo_txt,
+                file_name=f"recibo_chamada_{instrutor}_{data_selecionada}.txt",
+                mime="text/plain"
+            )
 
-        st.download_button(
-            label="⬇️ Baixar recibo da chamada (.txt)",
-            data=recibo_txt,
-            file_name=f"recibo_chamada_{instrutor}_{data_selecionada}.txt",
-            mime="text/plain"
-        )
-
-        st.session_state.revisado = False
+            # Resetar o estado de revisão para nova chamada
+            st.session_state.revisado = False
