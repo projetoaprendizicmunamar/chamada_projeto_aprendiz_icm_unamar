@@ -194,13 +194,15 @@ if st.session_state.logado:
             st.info(f"Total de faltas registradas: {len(faltas)}")
 
             # Gerar recibo em texto
-            recibo_txt = f"Recibo de Chamada - {instrutor}\n"
-            recibo_txt += f"Data: {data_selecionada.strftime('%d/%m/%Y')}\n"
-            recibo_txt += f"Instrumento: {instrumento}\n\n"
-            recibo_txt += "Presença dos Alunos:\n"
-            for aluno in lista_alunos:
-                status = "Faltou" if aluno in faltas else "Presente"
-                recibo_txt += f"- {aluno}: {status}\n"
+recibo_txt = f"Recibo de Chamada - {instrutor}\n"
+recibo_txt += f"Data: {data_selecionada.strftime('%d/%m/%Y')}\n"
+recibo_txt += f"Instrumento: {instrumento}\n"
+recibo_txt += f"Total de alunos: {len(lista_alunos)}\n"
+recibo_txt += f"Total de faltas: {len(faltas)}\n\n"
+recibo_txt += "Presença dos Alunos:\n"
+for aluno in lista_alunos:
+    status = "Faltou" if aluno in faltas else "Presente"
+    recibo_txt += f"- {aluno}: {status}\n"
 
             st.download_button(
                 label="⬇️ Baixar recibo da chamada (.txt)",
