@@ -176,7 +176,30 @@ if st.session_state.logado:
                 encoding="utf-8-sig",
                 sep=";",
                 header=not os.path.exists(caminho),
-                index=False)
+                index=False
+            )
+
+            # ✅ Envia os registros para o Supabase (dentro do botão)
+            for _, row in df.iterrows():
+                payload = {
+                    "data": str(row["Data"]),
+                    "instrutor": row["Instrutor"],
+                    "instrumento": row["Instrumento"],
+                    "aluno": row["Aluno"],
+                    "presenca": row["Presença"]
+                }
+
+                headers = {
+                    "apikey": st.secrets["supabase"]["key"],
+                    "Authorization": f"Bearer {st.secrets['supabase']['key']}",
+                    "Content-Type": "application/json"
+                }
+
+                supabase_url = f"{st.secrets['supabase']['url']}/rest/v1/Chamadas_Projeto_Aprendiz"
+                r = requests.post(supabase_url, headers=headers, json=payload)
+
+                if not r.ok:
+                    st.warning(f"⚠️ Erro ao enviar para Supabase: {r.status_code} - {r.text}")
 
             # 🔄 Atualiza Excel com abas por instrumento
             try:
