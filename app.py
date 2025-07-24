@@ -180,6 +180,11 @@ if st.session_state.logado:
             )
 
             # ✅ Envia os registros para o Supabase (dentro do botão)
+            supabase_url = f"{st.secrets['supabase']['url']}/rest/v1/chamadas_projeto_aprendiz?apikey={st.secrets['supabase']['key']}"
+            headers = {
+                "Content-Type": "application/json"
+            }
+
             for _, row in df.iterrows():
                 payload = {
                     "data": str(row["Data"]),
@@ -189,13 +194,6 @@ if st.session_state.logado:
                     "presenca": row["Presença"]
                 }
 
-                headers = {
-                    "apikey": st.secrets["supabase"]["key"],
-                    "Authorization": f"Bearer {st.secrets['supabase']['key']}",
-                    "Content-Type": "application/json"
-                }
-
-                supabase_url = f"{st.secrets['supabase']['url']}/rest/v1/chamadas_projeto_aprendiz"
                 r = requests.post(supabase_url, headers=headers, json=payload)
 
                 if not r.ok:
