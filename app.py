@@ -195,7 +195,7 @@ if st.session_state.logado:
                     "Content-Type": "application/json"
                 }
 
-                supabase_url = f"{st.secrets['supabase']['url']}/rest/v1/Chamadas_Projeto_Aprendiz"
+                supabase_url = f"{st.secrets['supabase']['url']}/rest/v1/chamadas_projeto_aprendiz"
                 r = requests.post(supabase_url, headers=headers, json=payload)
 
                 if not r.ok:
