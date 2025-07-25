@@ -166,18 +166,18 @@ if st.session_state.logado:
                     "Instrumento": instrumento,
                     "Aluno": aluno,
                     "Presença": status
-        })
+                })
 
-               df = pd.DataFrame(registros)
-               os.makedirs("dados", exist_ok=True)
-               caminho = "dados/chamada_geral.csv"
-               df.to_csv(
-                   caminho,
-                   mode="a",
-                   encoding="utf-8-sig",
-                   sep=";",
-                   header=not os.path.exists(caminho),
-                   index=False
+            df = pd.DataFrame(registros)
+            os.makedirs("dados", exist_ok=True)
+            caminho = "dados/chamada_geral.csv"
+            df.to_csv(
+                caminho,
+                mode="a",
+                encoding="utf-8-sig",
+                sep=";",
+                header=not os.path.exists(caminho),
+                index=False
     )
 
             supabase_url = f"{st.secrets['supabase']['url']}/rest/v1/chamadas_projeto_aprendiz?apikey={st.secrets['supabase']['key']}"
