@@ -156,15 +156,15 @@ if st.session_state.logado:
         st.caption("Revise a lista acima. Se estiver correta, confirme abaixo para registrar a chamada.")
 
        if st.button("✔️ Confirmar e registrar chamada"):
-    registros = []
-    for aluno in lista_alunos:
-        status = "Faltou" if aluno in faltas else "Presente"
-        registros.append({
-            "Data": data_selecionada,
-            "Instrutor": instrutor,
-            "Instrumento": instrumento,
-            "Aluno": aluno,
-            "Presença": status
+           registros = []
+           for aluno in lista_alunos:
+               status = "Faltou" if aluno in faltas else "Presente"
+               registros.append({
+                   "Data": data_selecionada,
+                   "Instrutor": instrutor,
+                   "Instrumento": instrumento,
+                   "Aluno": aluno,
+                   "Presença": status
         })
 
     df = pd.DataFrame(registros)
