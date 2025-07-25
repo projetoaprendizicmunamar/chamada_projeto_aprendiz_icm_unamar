@@ -193,6 +193,8 @@ if st.session_state.logado:
                     "aluno": row["Aluno"],
                     "presenca": row["Presença"]
                 }
+ # 👇 ADICIONE ESTA LINHA para ver o que está sendo enviado
+    st.code(json.dumps(payload, indent=2, ensure_ascii=False))
 
                 r = requests.post(supabase_url, headers=headers, json=payload)
 
