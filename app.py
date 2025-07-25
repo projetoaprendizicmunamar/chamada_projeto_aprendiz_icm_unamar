@@ -110,7 +110,7 @@ instrutores_por_usuario = {
     "trompete": "Julia",
     "escaleta": "Isabela/Milena",
     "canto": "Milena/Lucas"
-    "ukulele": "Karylayne"
+    "ukulele": "Kary"
     
 }
 st.title("🔐 Login do Instrutor")
