@@ -194,9 +194,7 @@ for _, row in df.iterrows():
         "presenca": row["Presença"]
     }
 
-    # 👇 Mostra o JSON sendo enviado
     st.code(json.dumps(payload, indent=2, ensure_ascii=False))
-
     r = requests.post(supabase_url, headers=headers, json=payload)
 
     if not r.ok:
