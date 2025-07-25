@@ -185,21 +185,22 @@ if st.session_state.logado:
                 "Content-Type": "application/json"
             }
 
-            for _, row in df.iterrows():
-                payload = {
-                    "data": str(row["Data"]),
-                    "instrutor": row["Instrutor"],
-                    "instrumento": row["Instrumento"],
-                    "aluno": row["Aluno"],
-                    "presenca": row["Presença"]
-                }
- # 👇 ADICIONE ESTA LINHA para ver o que está sendo enviado
+           for _, row in df.iterrows():
+    payload = {
+        "data": str(row["Data"]),
+        "instrutor": row["Instrutor"],
+        "instrumento": row["Instrumento"],
+        "aluno": row["Aluno"],
+        "presenca": row["Presença"]
+    }
+
+    # 👇 Esta linha mostra o que está sendo enviado
     st.code(json.dumps(payload, indent=2, ensure_ascii=False))
 
     r = requests.post(supabase_url, headers=headers, json=payload)
 
-                if not r.ok:
-                    st.warning(f"⚠️ Erro ao enviar para Supabase: {r.status_code} - {r.text}")
+    if not r.ok:
+        st.warning(f"⚠️ Erro ao enviar para Supabase: {r.status_code} - {r.text}")
 
             # 🔄 Atualiza Excel com abas por instrumento
             try:
