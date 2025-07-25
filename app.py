@@ -155,66 +155,67 @@ if st.session_state.logado:
         st.warning(f"{len(faltas)} aluno(s) marcados como falta.")
         st.caption("Revise a lista acima. Se estiver correta, confirme abaixo para registrar a chamada.")
 
-if st.button("✔️ Confirmar e registrar chamada"):
-    registros = []
-    for aluno in lista_alunos:
-        status = "Faltou" if aluno in faltas else "Presente"
-        registros.append({
-            "Data": data_selecionada,
-            "Instrutor": instrutor,
-            "Instrumento": instrumento,
-            "Aluno": aluno,
-            "Presença": status
+
+        if st.button("✔️ Confirmar e registrar chamada"):
+            registros = []
+            for aluno in lista_alunos:
+                status = "Faltou" if aluno in faltas else "Presente"
+                registros.append({
+                    "Data": data_selecionada,
+                    "Instrutor": instrutor,
+                    "Instrumento": instrumento,
+                    "Aluno": aluno,
+                    "Presença": status
         })
 
-    df = pd.DataFrame(registros)
-    os.makedirs("dados", exist_ok=True)
-    caminho = "dados/chamada_geral.csv"
-    df.to_csv(
-        caminho,
-        mode="a",
-        encoding="utf-8-sig",
-        sep=";",
-        header=not os.path.exists(caminho),
-        index=False
+               df = pd.DataFrame(registros)
+               os.makedirs("dados", exist_ok=True)
+               caminho = "dados/chamada_geral.csv"
+               df.to_csv(
+                   caminho,
+                   mode="a",
+                   encoding="utf-8-sig",
+                   sep=";",
+                   header=not os.path.exists(caminho),
+                   index=False
     )
 
-    supabase_url = f"{st.secrets['supabase']['url']}/rest/v1/chamadas_projeto_aprendiz?apikey={st.secrets['supabase']['key']}"
-    headers = {"Content-Type": "application/json"}
+            supabase_url = f"{st.secrets['supabase']['url']}/rest/v1/chamadas_projeto_aprendiz?apikey={st.secrets['supabase']['key']}"
+            headers = {"Content-Type": "application/json"}
 
-    for _, row in df.iterrows():
-        payload = {
-            "data": str(row["Data"]),
-            "instrutor": row["Instrutor"],
-            "instrumento": row["Instrumento"],
-            "aluno": row["Aluno"],
-            "presenca": row["Presença"]
-        }
+            for _, row in df.iterrows():
+                payload = {
+                    "data": str(row["Data"]),
+                    "instrutor": row["Instrutor"],
+                    "instrumento": row["Instrumento"],
+                    "aluno": row["Aluno"],
+                    "presenca": row["Presença"]
+                }
 
-        st.code(json.dumps(payload, indent=2, ensure_ascii=False))  # mostra o JSON
-        r = requests.post(supabase_url, headers=headers, json=payload)
+                st.code(json.dumps(payload, indent=2, ensure_ascii=False))  # mostra o JSON
+                r = requests.post(supabase_url, headers=headers, json=payload)
 
-        if not r.ok:
-            st.warning(f"⚠️ Erro ao enviar para Supabase: {r.status_code} - {r.text}")
+                if not r.ok:
+                    st.warning(f"⚠️ Erro ao enviar para Supabase: {r.status_code} - {r.text}")
 
-    st.success("Chamada registrada com sucesso!")
-    st.info(f"Total de faltas registradas: {len(faltas)}")
+            st.success("Chamada registrada com sucesso!")
+            st.info(f"Total de faltas registradas: {len(faltas)}")
 
-    recibo_txt = f"Recibo de Chamada - {instrutor}\n"
-    recibo_txt += f"Data: {data_selecionada.strftime('%d/%m/%Y')}\n"
-    recibo_txt += f"Instrumento: {instrumento}\n"
-    recibo_txt += f"Total de alunos: {len(lista_alunos)}\n"
-    recibo_txt += f"Total de faltas: {len(faltas)}\n\n"
-    recibo_txt += "Presença dos Alunos:\n"
-    for aluno in lista_alunos:
-        status = "Faltou" if aluno in faltas else "Presente"
-        recibo_txt += f"- {aluno}: {status}\n"
+            recibo_txt = f"Recibo de Chamada - {instrutor}\n"
+            recibo_txt += f"Data: {data_selecionada.strftime('%d/%m/%Y')}\n"
+            recibo_txt += f"Instrumento: {instrumento}\n"
+            recibo_txt += f"Total de alunos: {len(lista_alunos)}\n"
+            recibo_txt += f"Total de faltas: {len(faltas)}\n\n"
+            recibo_txt += "Presença dos Alunos:\n"
+            for aluno in lista_alunos:
+                status = "Faltou" if aluno in faltas else "Presente"
+                recibo_txt += f"- {aluno}: {status}\n"
 
-    st.download_button(
-        label="⬇️ Baixar recibo da chamada (.txt)",
-        data=recibo_txt,
-        file_name=f"recibo_chamada_{instrutor}_{data_selecionada}.txt",
-        mime="text/plain"
-    )
+            st.download_button(
+                label="⬇️ Baixar recibo da chamada (.txt)",
+                data=recibo_txt,
+                file_name=f"recibo_chamada_{instrutor}_{data_selecionada}.txt",
+                mime="text/plain"
+            )
 
-    st.session_state.revisado = False
+            st.session_state.revisado = False
