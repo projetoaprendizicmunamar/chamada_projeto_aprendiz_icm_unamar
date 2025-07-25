@@ -94,7 +94,19 @@ perfis = {
         "alunos": ["Josué de Souza Silveira Júnior", "Lucas Cézar Mendes de Souza"]
     }
 }
-
+# 👇 coloque fora do bloco acima, sozinho:
+instrutores_por_usuario = {
+    "piano": "Ana/Lucas",
+    "violao": "Julia/Denis",
+    "flauta": "Karylayne",
+    "violino": "Kaique/Davi",
+    "bateria_quarta": "Welington",
+    "bateria_quinta": "Filipe",
+    "trompete": "Julia",
+    "escaleta": "Isabela/Milena",
+    "canto": "Milena/Lucas"
+    
+}
 st.title("🔐 Login do Instrutor")
 
 # Inicializa os estados de login
@@ -126,7 +138,7 @@ if st.session_state.login_tentado and not st.session_state.logado:
 # Se logado, segue com o sistema
 if st.session_state.logado:
     usuario = st.session_state.usuario
-    instrutor = usuario
+    instrutor = instrutores_por_usuario.get(usuario, usuario)
     instrumento = perfis[usuario]["instrumento"]
     lista_alunos = perfis[usuario]["alunos"]
 
