@@ -192,7 +192,7 @@ if st.session_state.logado:
                     "presenca": row["Presença"]
                 }
 
-                st.code(json.dumps(payload, indent=2, ensure_ascii=False))  # mostra o JSON
+                #st.code(json.dumps(payload, indent=2, ensure_ascii=False))  # mostra o JSON
                 r = requests.post(supabase_url, headers=headers, json=payload)
 
                 if not r.ok:
