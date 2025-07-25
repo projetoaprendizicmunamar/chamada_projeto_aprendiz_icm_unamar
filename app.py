@@ -197,14 +197,14 @@ if st.session_state.logado:
                 if not r.ok:
                     st.warning(f"⚠️ Erro ao enviar para Supabase: {r.status_code} - {r.text}")
 
-    try:
-        df_total = pd.read_csv(caminho, sep=";")
-        excel_path = "dados/chamada_por_instrumento.xlsx"
-        with pd.ExcelWriter(excel_path, engine="xlsxwriter") as writer:
-            for instrumento_nome, dados_instrumento in df_total.groupby("Instrumento"):
-                dados_instrumento.to_excel(writer, sheet_name=instrumento_nome[:31], index=False)
-    except Exception as e:
-        st.error(f"Erro ao gerar Excel por instrumento: {e}")
+#    try:
+#        df_total = pd.read_csv(caminho, sep=";")
+#        excel_path = "dados/chamada_por_instrumento.xlsx"
+#        with pd.ExcelWriter(excel_path, engine="xlsxwriter") as writer:
+#            for instrumento_nome, dados_instrumento in df_total.groupby("Instrumento"):
+#                dados_instrumento.to_excel(writer, sheet_name=instrumento_nome[:31], index=False)
+#    except Exception as e:
+#        st.error(f"Erro ao gerar Excel por instrumento: {e}")
 
     st.success("Chamada registrada com sucesso!")
     st.info(f"Total de faltas registradas: {len(faltas)}")
