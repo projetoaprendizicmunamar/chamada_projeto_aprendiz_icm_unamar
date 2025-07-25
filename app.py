@@ -88,6 +88,11 @@ perfis = {
             "Ana Carla Mendes Silveira", "Yanni Gonçalves Santiago", "Vitória Martins de Moraes",
             "Caroline Carvalho dos Santos de Souza", "Davi (Intermadiário de Búzios Central)", "Ana Ketelyn"]
     },
+    "ukulele": {
+        "senha": "Unamar2025",
+        "instrumento": "Ukulele",
+        "alunos": ["Ana Ketelyn", "Mirian Marques", "Bernardo Blyth"]
+},
     "trompete": {
         "senha": "Unamar2025",
         "instrumento": "Trompete",
@@ -105,6 +110,7 @@ instrutores_por_usuario = {
     "trompete": "Julia",
     "escaleta": "Isabela/Milena",
     "canto": "Milena/Lucas"
+    "ukulele": "Karylayne"
     
 }
 st.title("🔐 Login do Instrutor")
