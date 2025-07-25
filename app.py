@@ -109,7 +109,7 @@ instrutores_por_usuario = {
     "bateria_quinta": "Filipe",
     "trompete": "Julia",
     "escaleta": "Isabela/Milena",
-    "canto": "Milena/Lucas"
+    "canto": "Milena/Lucas",
     "ukulele": "Kary"
     
 }
