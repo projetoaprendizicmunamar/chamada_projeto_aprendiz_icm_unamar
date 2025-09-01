@@ -76,7 +76,7 @@ perfis = {
         "instrumento": "Flauta Transversal",
         "alunos": [
             "Andréa Alves Miranda da Silva", "Angela Cristina Mota de Almeida Rabello",
-            "Ana Beatriz de Souza Assumpção", "Sarah Fernandes de Sá", "Sofia Moreira"
+            "Ana Beatriz de Souza Assumpção", "Sarah Fernandes de Sá", "Sophia Moreira"
         ]
     },
     "violino": {
@@ -91,7 +91,7 @@ perfis = {
     "ukulele": {
         "senha": "Unamar2025",
         "instrumento": "Ukulele",
-        "alunos": ["Ana Ketelyn", "Mirian Marques", "Bernardo Blyth"]
+        "alunos": ["Ana Ketelyn", "Mirian Marques", "Joyce Rodrigues", "Sophia Moreira", "Bernardo Blyth"]
 },
     "trompete": {
         "senha": "Unamar2025",
