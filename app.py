@@ -84,8 +84,7 @@ perfis = {
         "instrumento": "Violino",
         "alunos": ["Thiago da Silva Santos", "Denis Fernandes da Silva Ribeiro", "Gabriele Franco de Oliveira",
             "João Pedro Sousa Assumpção", "Gabrielly Gomes dos Santos Nunes", "Emerson Felizardo Reis",
-            "Daniela Diógenes Carvalho Silveira", "Kauã Bryan Constantino Nunes", "Andressa Alves",
-            "Ana Carla Mendes Silveira", "Yanni Gonçalves Santiago", "Vitória Martins de Moraes",
+            "Daniela Diógenes Carvalho Silveira", "Kauã Bryan Constantino Nunes", "Andressa Alves", "Yanni Gonçalves Santiago", "Vitória Martins de Moraes",
             "Caroline Carvalho dos Santos de Souza", "Davi (Intermadiário de Búzios Central)", "Ana Ketelyn"]
     },
     "ukulele": {
